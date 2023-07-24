@@ -178,7 +178,7 @@ public class Alt_Functions:MonoBehaviour
                 spawnedVisual.AddComponent<Alt_BulletVisual>().bulletData = spawnedBullet;
                 Alt_MiniGameManager.Instance.producedBulletsRepresentation.Add(spawnedVisual);
             }
-            //GameObject spawnedVisual= Instantiate(bullet, container.transform.position, Quaternion.identity);
+            
         }
         else
         {
@@ -201,12 +201,7 @@ public class Alt_Functions:MonoBehaviour
         if (container.Content == null) return;
         if (container.GetNextTile() == null) container.Content = null;
         else container.GetNextTile().ContentNextTurn = container.Content;
-        //container.Content.currentTile = container;
-        //container.Content = null;
     }
-
-
-
 
     #endregion
 }
