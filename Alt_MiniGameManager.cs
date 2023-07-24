@@ -11,9 +11,11 @@ public class Alt_MiniGameManager : MonoBehaviour
     private List<GameObject> bulletList;
     private List<GameObject> mySpawner;
     private List<GameObject> myTileHolders;
-
     public Alt_Tile[,] tileList;
+
+    
     public static Alt_MiniGameManager Instance;
+
 
     public List<GameObject> producedBulletsRepresentation;
     private bool tickToggle = false;
@@ -45,24 +47,15 @@ public class Alt_MiniGameManager : MonoBehaviour
     }
     private void OnTick()
     {
-
         foreach (Alt_Tile tileItem in tileList)
         {
-
             if (tickToggle)
-            {
-                
+            { 
                 tileItem.useManipulationFunction();
-
             }
             else {
-                tileItem.useMovementFunction();
-                
-                
+                tileItem.useMovementFunction();       
             }
-
-           
-
         }
         if (!tickToggle) 
         {
@@ -71,13 +64,8 @@ public class Alt_MiniGameManager : MonoBehaviour
                 tileItem.Content = tileItem.ContentNextTurn;
                 tileItem.ContentNextTurn = null;
                 if(tileItem.Content !=null) tileItem.Content.currentTile = tileItem;
-                
             }
-
         }
-        
-
-
         tickToggle = !tickToggle;
     }
 
@@ -88,11 +76,9 @@ public class Alt_MiniGameManager : MonoBehaviour
 
     }
     public void OnPlayButton()
-    {
-        
+    {        
         if (isPaused)
         {
-
             ticker = StartCoroutine(Tick());
             isPaused = false;
         }
@@ -106,7 +92,6 @@ public class Alt_MiniGameManager : MonoBehaviour
 
         foreach (GameObject s in mySpawner)
         {
-
             s.GetComponent<Spawner>().SetTickToggle(true);
             tickCount = 0;
         }
@@ -119,7 +104,6 @@ public class Alt_MiniGameManager : MonoBehaviour
         {
             Destroy(bullet.gameObject);
         }
-
     }
 
     
@@ -127,15 +111,11 @@ public class Alt_MiniGameManager : MonoBehaviour
 
     public void AddSpawner(GameObject s)
     {
-
         mySpawner.Add(s);
-
     }
     public void AddTileHolder(GameObject th)
     {
-
         myTileHolders.Add(th);
-
     }
 
 
@@ -148,13 +128,4 @@ public class Alt_MiniGameManager : MonoBehaviour
         }
         return tileList[x, y];
     }
-
-
-
-
-
-
-
-
-
 }
