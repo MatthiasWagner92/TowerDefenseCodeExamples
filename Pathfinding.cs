@@ -28,16 +28,17 @@ public class Pathfinding : MonoBehaviour
     }
     public List<Tile3D> startSearchPath(Tile3D startNode, Tile3D targetNode)
     {
+        //checks if there is already a known path to the target node stored in the startNode.pathToTarget list. If such a path exists, it is returned immediately, avoiding unnecessary calculations.
         if (startNode.pathToTarget.Count > 0) return startNode.pathToTarget;
 
         openList = new List<Tile3D>();
         openList.Add(startNode);
         closedList = new List<Tile3D>();
         Tile3D current = targetNode;
-        
+        //The main loop runs as long as there are nodes in the openList to be evaluated.
         while (openList.Count > 0)
         {
-
+            
             current = GetLowestFcost(openList);
             openList.Remove(current);
             closedList.Add(current);
@@ -56,7 +57,7 @@ public class Pathfinding : MonoBehaviour
                 saveCondition = true;
                 return RetracePath(startNode, targetNode);
             }
-            
+            //The method iterates through the neighbors of the current node and calculates their G and H costs. If a neighbor is already in the closedList, is blocked by a wall, or is unwalkable, it is skipped.
             foreach (Tile3D neighbour in current.getNeighbours())
             {
                 if (closedList.Contains(neighbour) || (neighbour.GetWall() != null)||!neighbour._isWalkable)
@@ -84,6 +85,7 @@ public class Pathfinding : MonoBehaviour
         return AppendTile3D(RetracePath(startNode, targetNode) ,knownPath);
     }
 
+    //returns the Result
     private List<Tile3D> RetracePath(Tile3D startTile, Tile3D endTile)
     {
         List<Tile3D> path = new List<Tile3D>();
@@ -106,6 +108,8 @@ public class Pathfinding : MonoBehaviour
 
         return path;
     }
+
+    //Optimization. Gets the Path from any Enemy that also walks on that Tile.
     public void StoreSuccessors(List<Tile3D> tileList)
     {
 
@@ -121,6 +125,9 @@ public class Pathfinding : MonoBehaviour
             }
         }
     }
+
+    //(At the beginning of each iteration) 
+    //the node with the lowest F-cost (combination of G-cost and H-cost) from the openList is selected as the current node.
     public Tile3D GetLowestFcost(List<Tile3D> searchList)
     {
         
