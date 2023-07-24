@@ -7,6 +7,8 @@ public class Alt_BulletVisual : MonoBehaviour
     public Alt_Bullet bulletData;
     private Vector3 currentPosition;
 
+
+//Later: Maybe optimize this with a On Tick Listener
     void Update()
     {
         if(GameManager.Instance.GameState == GameState.MunitionFactory)
